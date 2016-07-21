@@ -1,6 +1,7 @@
 package org.mifos.selfserviceapp.ui.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -15,8 +16,10 @@ import org.mifos.selfserviceapp.R;
 import org.mifos.selfserviceapp.data.Client;
 import org.mifos.selfserviceapp.presenters.ClientListPresenter;
 import org.mifos.selfserviceapp.ui.activities.BaseActivity;
+import org.mifos.selfserviceapp.ui.activities.ClientAccountsActivity;
 import org.mifos.selfserviceapp.ui.adapters.ClientListAdapter;
 import org.mifos.selfserviceapp.ui.views.ClientListView;
+import org.mifos.selfserviceapp.utils.Constants;
 import org.mifos.selfserviceapp.utils.RecyclerItemClickListener;
 
 import java.util.ArrayList;
@@ -91,7 +94,9 @@ public class ClientListFragment extends Fragment implements RecyclerItemClickLis
 
     @Override
     public void onItemClick(View childView, int position) {
-        //TODO add client accounts screen from here
+        Intent clientAccountIntent = new Intent(getActivity(), ClientAccountsActivity.class);
+        clientAccountIntent.putExtra(Constants.CLIENT_ID, clientList.get(position).getId());
+        startActivity(clientAccountIntent);
     }
 
     @Override
