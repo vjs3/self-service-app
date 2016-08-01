@@ -46,7 +46,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             toolbar.setTitle(getString(R.string.home));
         }
 
-        replaceFragment(new ClientListFragment(), false, R.id.container);
+        replaceFragment(new ClientListFragment(), R.id.container);
 
         setupNavigationBar();
     }
@@ -62,7 +62,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         // select which item to open
         switch (item.getItemId()) {
             case R.id.item_client_list:
-              replaceFragment(new ClientListFragment(), false, R.id.container);
+              replaceFragment(new ClientListFragment(), R.id.container);
                 break;
             case R.id.item_accounts:
                 break;
@@ -116,23 +116,14 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
      * selecting in navigation drawer.
      *
      * @param fragment Name of the fragment which is to be replaced
-     * @param addToBackStack boolean value to decide weather to store fragment in backstack
      * @param containerId id of container where fragment has to be hold
      */
-    private void replaceFragment(Fragment fragment, boolean addToBackStack, int containerId) {
+    private void replaceFragment(Fragment fragment, int containerId) {
         invalidateOptionsMenu();
-        String backStateName = fragment.getClass().getName();
-        boolean fragmentPopped = getSupportFragmentManager().popBackStackImmediate(backStateName,
-                0);
 
-        if (!fragmentPopped && getSupportFragmentManager().findFragmentByTag(backStateName) ==
-                null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(containerId, fragment, backStateName);
-            if (addToBackStack) {
-                transaction.addToBackStack(backStateName);
-            }
-            transaction.commit();
-        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(containerId, fragment);
+        transaction.commit();
+
     }
 }

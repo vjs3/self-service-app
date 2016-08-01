@@ -3,11 +3,16 @@ package org.mifos.selfserviceapp.presenters;
 import android.content.Context;
 
 import org.mifos.selfserviceapp.api.DataManager;
+import org.mifos.selfserviceapp.data.accounts.LoanAccount;
 import org.mifos.selfserviceapp.injection.ActivityContext;
 import org.mifos.selfserviceapp.presenters.base.BasePresenter;
 import org.mifos.selfserviceapp.ui.views.LoanAccountsListView;
 
 import javax.inject.Inject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @author Vishwajeet
@@ -32,6 +37,18 @@ public class LoanAccountsListPresenter extends BasePresenter<LoanAccountsListVie
     }
 
     public void fetchLoanAccountsList(int clientId) {
+       Call<LoanAccount> call = dataManager.getLoanAccounts(clientId);
+        getMvpView().showProgress();
+        call.enqueue(new Callback<LoanAccount>() {
+            @Override
+            public void onResponse(Response<LoanAccount> response) {
 
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
     }
 }
