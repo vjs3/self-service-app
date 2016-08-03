@@ -84,6 +84,8 @@ public class ClientListActivity extends BaseActivity
     public void onItemClick(View childView, int position) {
         Intent clientAccountIntent = new Intent(this, HomeActivity.class);
         clientAccountIntent.putExtra(Constants.CLIENT_ID, clientList.get(position).getId());
+        int a = clientList.get(position).getId();
+        System.out.print(a);
         startActivity(clientAccountIntent);
     }
 

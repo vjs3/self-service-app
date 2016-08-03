@@ -7,7 +7,8 @@ import android.widget.Toast;
 
 import org.mifos.selfserviceapp.MifosSelfServiceApp;
 import org.mifos.selfserviceapp.injection.component.ActivityComponent;
-import org.mifos.selfserviceapp.injection.component.DaggerActivityComponent;
+import org.mifos.selfserviceapp.injection.component.DaggerActivityComponent; 0
+
 import org.mifos.selfserviceapp.injection.module.ActivityModule;
 
 /**

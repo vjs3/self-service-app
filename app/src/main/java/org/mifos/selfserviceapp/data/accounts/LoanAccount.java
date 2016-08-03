@@ -11,14 +11,14 @@ public class LoanAccount {
     private int id;
     private String accountNo;
     private String productName;
-    private List<LoanAccount> loanAccounts = new ArrayList<LoanAccount>();
+    private List<LoanAccount> pageItems = new ArrayList<LoanAccount>();
 
-    public List<LoanAccount> getLoanAccounts() {
-        return loanAccounts;
+    public List<LoanAccount> getPageItems() {
+        return pageItems;
     }
 
     public void setLoanAccounts(List<LoanAccount> loanAccounts) {
-        this.loanAccounts = loanAccounts;
+        this.pageItems = loanAccounts;
     }
 
     public String getAccountNo() {

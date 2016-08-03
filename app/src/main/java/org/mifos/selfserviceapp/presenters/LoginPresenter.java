@@ -3,7 +3,6 @@ package org.mifos.selfserviceapp.presenters;
 import android.content.Context;
 import android.content.res.Resources;
 
-import org.mifos.selfserviceapp.R;
 import org.mifos.selfserviceapp.api.DataManager;
 import org.mifos.selfserviceapp.data.User;
 import org.mifos.selfserviceapp.injection.ActivityContext;
