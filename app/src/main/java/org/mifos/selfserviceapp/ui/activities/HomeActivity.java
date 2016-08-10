@@ -3,6 +3,8 @@ package org.mifos.selfserviceapp.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,6 +14,8 @@ import android.view.View;
 import android.support.v7.widget.Toolbar;
 
 import org.mifos.selfserviceapp.R;
+import org.mifos.selfserviceapp.ui.fragments.RecentTransactionsFragment;
+import org.mifos.selfserviceapp.utils.Constants;
 
 
 import butterknife.BindView;
@@ -23,6 +27,8 @@ import butterknife.ButterKnife;
  */
 
 public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private int clientId;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -45,6 +51,9 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             toolbar.setTitle(getString(R.string.home));
         }
 
+        clientId = getIntent().getExtras().getInt(Constants.CLIENT_ID);
+        // ClientAccountsFragment.newInstance(clientId);
+        replaceFragment(RecentTransactionsFragment.newInstance(clientId), R.id.container);
         setupNavigationBar();
     }
 
@@ -63,6 +72,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.item_funds_transfer:
                 break;
             case R.id.item_recent_transactions:
+                replaceFragment(RecentTransactionsFragment.newInstance(clientId), R.id.container);
                 break;
             case R.id.item_questionnaire:
                 break;
@@ -99,6 +109,15 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         };
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
+    }
+
+    private void replaceFragment(Fragment fragment, int containerId) {
+        invalidateOptionsMenu();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(containerId, fragment);
+        transaction.commit();
+
     }
 
 }
