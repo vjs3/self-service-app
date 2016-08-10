@@ -13,4 +13,4 @@ import java.util.List;
 public interface RecentTransactionsView extends MVPView {
     void showErrorFetchingRecentTransactions(String message);
 
-    void showRecentTransactions(List<Transaction> recentTransactions);}
+    void showRecentTransactions(List<Transaction> recentTransactionsList);}

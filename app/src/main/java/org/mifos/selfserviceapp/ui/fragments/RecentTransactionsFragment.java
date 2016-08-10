@@ -15,10 +15,14 @@ import org.mifos.selfserviceapp.R;
 import org.mifos.selfserviceapp.data.Transaction;
 import org.mifos.selfserviceapp.presenters.RecentTransactionsPresenter;
 import org.mifos.selfserviceapp.ui.activities.BaseActivity;
+import org.mifos.selfserviceapp.ui.adapters.LoanAccountsListAdapter;
+import org.mifos.selfserviceapp.ui.adapters.RecentTransactionListAdapter;
 import org.mifos.selfserviceapp.ui.views.RecentTransactionsView;
 import org.mifos.selfserviceapp.utils.Constants;
+import org.mifos.selfserviceapp.utils.DividerItemDecoration;
 import org.mifos.selfserviceapp.utils.RecyclerItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,6 +43,8 @@ public class RecentTransactionsFragment extends Fragment implements RecyclerItem
     private View rootView;
     private LinearLayoutManager layoutManager;
     private ProgressDialog progressDialog;
+    private List<Transaction> recentTransactionList = new ArrayList<Transaction>();
+    RecentTransactionListAdapter recentTransactionsListAdapter;
 
     @BindView(R.id.rv_recent_transactions)
     RecyclerView rvRecentTransactions;
@@ -68,6 +74,8 @@ public class RecentTransactionsFragment extends Fragment implements RecyclerItem
 
         mRecentTransactionsPresenter.attachView(this);
 
+        rvRecentTransactions.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+
         layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
@@ -80,11 +88,11 @@ public class RecentTransactionsFragment extends Fragment implements RecyclerItem
         swipeTransactionContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mRecentTransactionsPresenter.loadrecentTransactions(clientId);
+                mRecentTransactionsPresenter.loadRecentTransactions(clientId);
             }
         });
 
-        mRecentTransactionsPresenter.loadrecentTransactions(clientId);
+        mRecentTransactionsPresenter.loadRecentTransactions(clientId);
         return rootView;
     }
 
@@ -113,11 +121,6 @@ public class RecentTransactionsFragment extends Fragment implements RecyclerItem
     public void onItemLongPress(View childView, int position) {
 
     }
-    @Override
-    public void onDestroyView() {
-        mRecentTransactionsPresenter.detachView();
-        super.onDestroyView();
-    }
 
     @Override
     public void showErrorFetchingRecentTransactions(String message) {
@@ -125,7 +128,21 @@ public class RecentTransactionsFragment extends Fragment implements RecyclerItem
     }
 
     @Override
-    public void showRecentTransactions(List<Transaction> recentTransactions) {
+    public void showRecentTransactions(List<Transaction> recentTransactionList) {
+        this.recentTransactionList = recentTransactionList;
+        inflateRecentTransactionList();
+        if (swipeTransactionContainer.isRefreshing())
+            swipeTransactionContainer.setRefreshing(false);
+    }
 
+    private void inflateRecentTransactionList() {
+        recentTransactionsListAdapter = new RecentTransactionListAdapter(getContext(), recentTransactionList);
+        rvRecentTransactions.setAdapter(recentTransactionsListAdapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        mRecentTransactionsPresenter.detachView();
+        super.onDestroyView();
     }
 }

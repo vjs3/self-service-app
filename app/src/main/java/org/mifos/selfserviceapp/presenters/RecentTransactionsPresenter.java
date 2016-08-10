@@ -40,7 +40,7 @@ public class RecentTransactionsPresenter extends BasePresenter<RecentTransaction
         this.dataManager = dataManager;
     }
 
-    public void loadrecentTransactions(int clientId) {
+    public void loadRecentTransactions(int clientId) {
         Call<Transaction> call = dataManager.getRecentTransactions(clientId);
         getMvpView().showProgress();
 
@@ -51,13 +51,13 @@ public class RecentTransactionsPresenter extends BasePresenter<RecentTransaction
 
                 if (response.code() == 200) {
                     Transaction recentTransaction = response.body();
-                    List<Transaction> recentRansaction = response.body().getRecenttransactions();
-                    if(recentRansaction !=null) {
-                        getMvpView().showRecentTransactions(recentRansaction);
+                    List<Transaction> recentTransactionsList = response.body().getPageItems();
+                    if(recentTransaction !=null) {
+                        getMvpView().showRecentTransactions(recentTransactionsList);
                     }
 
                 } else if (response.code() >= 400 && response.code() <500) {
-                    getMvpView().showErrorFetchingRecentTransactions(context.getString(R.string.error_loan_accounts_list_loading));
+                    getMvpView().showErrorFetchingRecentTransactions(context.getString(R.string.error_client_loading));
                 } else if (response.code() == 500) {
                     getMvpView().showErrorFetchingRecentTransactions(context.getString(R.string.error_internal_server));
                 }

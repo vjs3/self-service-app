@@ -12,8 +12,8 @@ import java.util.List;
 public class Transaction {
     private int id;
     private List<Transaction> pageItems = new ArrayList<Transaction>();
-    private List<Integer> submittedOndate = new ArrayList<Integer>();
-    private int amount;
+    private List<Integer> submittedOnDate = new ArrayList<Integer>();
+    private float amount;
 
     public List<Transaction> getPageItems() {
         return pageItems;
@@ -23,19 +23,19 @@ public class Transaction {
         this.pageItems = pageItems;
     }
 
-    public List<Integer> getSubmittedOndate() {
-        return submittedOndate;
+    public List<Integer> getSubmittedOnDate() {
+        return submittedOnDate;
     }
 
-    public void setSubmittedOndate(List<Integer> submittedOndate) {
-        this.submittedOndate = submittedOndate;
+    public void setSubmittedOndate(List<Integer> submittedOnDate) {
+        this.submittedOnDate = submittedOnDate;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 

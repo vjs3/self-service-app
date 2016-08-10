@@ -52,7 +52,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         }
 
         clientId = getIntent().getExtras().getInt(Constants.CLIENT_ID);
-        // ClientAccountsFragment.newInstance(clientId);
+        RecentTransactionsFragment.newInstance(clientId);
         replaceFragment(RecentTransactionsFragment.newInstance(clientId), R.id.container);
         setupNavigationBar();
     }
