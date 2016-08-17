@@ -24,6 +24,13 @@
             android:icon="@mipmap/mifos_logo"
             android:title="@string/recent_transactions"
             />
+
+        <item
+            android:id="@+id/item_client_charges"
+            android:checked="false"
+            android:icon="@mipmap/mifos_logo"
+            android:title="@string/client_charges"
+            />
     </group>
 
     <group android:checkableBehavior="single"
